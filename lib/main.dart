@@ -9,10 +9,18 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'index.dart';
 
-
-
-void main()  async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    // Replace with actual values
+    options: FirebaseOptions(
+      apiKey: "AIzaSyCD8q-arv-PjjIgjFu5ASzDYcqUiSJgXqc",
+      appId: "1:237129782950:android:a789a3f7811b9223cdc667",
+      messagingSenderId:
+          "237129782950-n67b3tufe4e50t16q4nbbbgc5okar68m.apps.googleusercontent.com",
+      projectId: "cs310-syboard",
+    ),
+  );
   runApp(const MyFirebaseApp());
 }
 
@@ -24,24 +32,24 @@ class MyFirebaseApp extends StatefulWidget {
 }
 
 class _MyFirebaseAppState extends State<MyFirebaseApp> {
-
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: _initialization,
-      builder: (context, snapshot){
-        if(snapshot.hasError) {
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
           return MaterialApp(
             home: Scaffold(
               body: Center(
-                child: Text('No Firebase Connection: ${snapshot.error.toString()}'),
+                child: Text(
+                    'No Firebase Connection: ${snapshot.error.toString()}'),
               ),
             ),
           );
         }
-        if(snapshot.connectionState == ConnectionState.done) {
+        if (snapshot.connectionState == ConnectionState.done) {
           return AppBase();
         }
         return const MaterialApp(
@@ -49,31 +57,37 @@ class _MyFirebaseAppState extends State<MyFirebaseApp> {
             child: Text('Connecting to Firebase'),
           ),
         );
-      },);
+      },
+    );
   }
 }
 
-
 class AppBase extends StatelessWidget {
-  const AppBase({Key? key,}):super(key: key);
+  const AppBase({
+    Key? key,
+  }) : super(key: key);
 
   static FirebaseAnalytics analytics = FirebaseAnalytics();
-  static FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      navigatorObservers: <NavigatorObserver> [observer],
-       home: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              routes: {
-                '/': (context) => Index(analytics: analytics, observer: observer),
-                '/walkthrough': (context) => WalkThrough(analytics: analytics, observer: observer),
-                '/welcome': (context) => Welcome(analytics: analytics, observer: observer),
-                '/login': (context) => Login(analytics: analytics, observer: observer),
-                '/signup': (context) => SignUp(analytics: analytics, observer: observer),
-              },
-            )
-    );
+        navigatorObservers: <NavigatorObserver>[observer],
+        home: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          routes: {
+            '/': (context) => Index(analytics: analytics, observer: observer),
+            '/walkthrough': (context) =>
+                WalkThrough(analytics: analytics, observer: observer),
+            '/welcome': (context) =>
+                Welcome(analytics: analytics, observer: observer),
+            '/login': (context) =>
+                Login(analytics: analytics, observer: observer),
+            '/signup': (context) =>
+                SignUp(analytics: analytics, observer: observer),
+          },
+        ));
   }
 }

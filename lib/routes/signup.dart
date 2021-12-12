@@ -9,26 +9,30 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:syboard/utils/analytics-utils.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUp extends StatefulWidget {
-
   const SignUp({Key? key, this.analytics, this.observer}) : super(key: key);
-
   final FirebaseAnalytics? analytics;
   final FirebaseAnalyticsObserver? observer;
-
+  final String title = 'Registration';
   @override
   _SignUpState createState() => _SignUpState();
 }
 
 class _SignUpState extends State<SignUp> {
-  final _formKey = GlobalKey<FormState>();
-
   AuthService authService = AuthService();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   String mail = "";
   String initialPass = "";
   String finalPass = "";
+
+  bool? _success;
+  String _userEmail = '';
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +83,7 @@ class _SignUpState extends State<SignUp> {
                           Expanded(
                             flex: 1,
                             child: TextFormField(
+                                controller: _emailController,
                                 decoration: const InputDecoration(
                                   hintText: 'E-mail',
                                   border: OutlineInputBorder(
@@ -169,6 +174,7 @@ class _SignUpState extends State<SignUp> {
                           Expanded(
                             flex: 1,
                             child: TextFormField(
+                              controller: _passwordController,
                               decoration: const InputDecoration(
                                 hintText: 'Confirm Password',
                                 border: OutlineInputBorder(
@@ -219,9 +225,10 @@ class _SignUpState extends State<SignUp> {
                           Expanded(
                             flex: 1,
                             child: OutlinedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
                                   _formKey.currentState!.save();
+                                  await _register();
                                 }
                               },
                               child: Padding(
@@ -286,5 +293,28 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _register() async {
+    final User? user = (await _auth.createUserWithEmailAndPassword(
+      email: _emailController.text,
+      password: _passwordController.text,
+    ))
+        .user;
+    if (user != null) {
+      setState(() {
+        _success = true;
+        _userEmail = user.email ?? '';
+      });
+    } else {
+      _success = false;
+    }
   }
 }
