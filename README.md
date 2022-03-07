@@ -1,6 +1,8 @@
 # syboard
 
-An e-commercial mobile app for CS 310 course
+Welcome to Syboard!
+
+Syboard is an e-commerce application where you can sell and buy all sort of electronic devices.
 
 ## Getting Started
 
