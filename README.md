@@ -8,8 +8,7 @@ Syboard is an e-commerce application where you can sell and buy all sort of elec
 
 ![WhatsApp Image 2022-03-07 at 7 41 24 PM (2)](https://user-images.githubusercontent.com/89805772/157082611-1ec908a7-f7c0-4e7a-a1f6-755833194190.jpeg) ![WhatsApp Image 2022-03-07 at 7 41 25 PM](https://user-images.githubusercontent.com/89805772/157082691-5b7fc3fc-0f63-44ac-9ee7-af1091573db1.jpeg)
 
-![WhatsApp Image 2022-03-07 at 7 41 25 PM](https://user-images.githubusercontent.com/89805772/157082749-56763468-aa25-452f-aada-a715daf9b7f5.jpeg) ![WhatsApp Image 2022-03-07 at 7 41 25 PM (3)](https://user-images.githubusercontent.com/89805772/157082753-5946a0d7-c180-4bca-89a7-a89370de2a3f.jpeg)
-
+![WhatsApp Image 2022-03-07 at 7 41 25 PM (3)](https://user-images.githubusercontent.com/89805772/157082753-5946a0d7-c180-4bca-89a7-a89370de2a3f.jpeg) ![WhatsApp Image 2022-03-07 at 7 41 25 PM (2)](https://user-images.githubusercontent.com/89805772/157082892-576bbd54-387a-4f9b-8a78-8a3ba2936374.jpeg)
 
 
 ## Getting Started
